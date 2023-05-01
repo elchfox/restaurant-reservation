@@ -119,6 +119,7 @@ const ReservationForm = ({ info }: Props) => {
       )}
       {typeSelect === 1 && (
         <Times
+        isCurrentDate={new Date().setHours(0,0,0,0) === data.date.setHours(0,0,0,0)}
           onSelect={(time) => onCheckOrder("time", time)}
           value={data.time}
           startTime={

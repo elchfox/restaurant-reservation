@@ -6,10 +6,10 @@ interface Props {
   startTime: string;
   endTime: string;
   value?: string;
+  isCurrentDate?:boolean
 }
 
-const Times = ({ onSelect, startTime, endTime, value }: Props) => {
-  const [listTime, setListTime] = useState();
+const Times = ({ onSelect, startTime, endTime, value,isCurrentDate }: Props) => {
 
   const scrollTo = () => {
     const element: any = document.getElementById("scroll-to");
@@ -23,6 +23,8 @@ const Times = ({ onSelect, startTime, endTime, value }: Props) => {
   },[])
   const generateTimeIntervals = (startTime: string, endTime: string) => {
     const intervals = [];
+    
+    const current = new Date();
     const start = new Date(`2022-01-01T${startTime}:00`);
     const end = new Date(`2022-01-01T${endTime}:00`);
 
@@ -31,7 +33,7 @@ const Times = ({ onSelect, startTime, endTime, value }: Props) => {
         hour: "2-digit",
         minute: "2-digit",
       });
-      intervals.push(timeString);
+      (isCurrentDate && current <= start) || !isCurrentDate && intervals.push(timeString) ;
       start.setTime(start.getTime() + 15 * 60 * 1000);
     }
 
@@ -47,7 +49,7 @@ const Times = ({ onSelect, startTime, endTime, value }: Props) => {
         >
           {time}
         </div>
-      ))}
+      )) }
     </div>
   );
 };
